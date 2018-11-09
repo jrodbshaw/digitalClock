@@ -105,7 +105,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   // Override the current require with this new one
   return newRequire;
 })({"index.js":[function(require,module,exports) {
-console.log("Hello World!");
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "Decemeber"];
+
+function setDate() {
+  var now = new Date();
+  var seconds = now.getSeconds();
+  var minutes = now.getMinutes();
+  var hours = now.getHours();
+  var month = now.getMonth();
+  var year = now.getFullYear(); // setting the year and month
+
+  document.querySelector(".month").innerHTML = months[month];
+  document.querySelector(".year").innerHTML = year; // setting the seconds
+
+  if (seconds < 10) {
+    document.querySelector(".seconds").innerHTML = "0".concat(seconds);
+  } else {
+    document.querySelector(".seconds").innerHTML = seconds;
+  } // setting the minutes
+
+
+  if (minutes < 10) {
+    document.querySelector(".minutes").innerHTML = "0".concat(minutes);
+  } else {
+    document.querySelector(".minutes").innerHTML = minutes;
+  } // setting the hours
+
+
+  if (hours > 12) {
+    document.querySelector(".hour").innerHTML = "0".concat(hours - 12);
+    document.querySelector("body").style.backgroundColor = "black";
+    document.querySelector("body").style.color = "white";
+    document.querySelector(".clock-face").style.border = "solid 1px white";
+    document.querySelector(".clock-face").style.backgroundColor = "black";
+  } else if (hours < 10) {
+    document.querySelector("body").style.backgroundColor = "skyblue";
+    document.querySelector(".hour").innerHTML = "0 ".concat(hours);
+  } else {
+    document.querySelector(".hour").innerHTML = "".concat(hours);
+  }
+
+  if (hours < 12) {
+    document.querySelector("body").style.backgroundColor = "skyblue";
+  }
+} // Add weather
+
+
+var WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?lat=-27.20318&lon=153.03510&units=metric&APPID=502c0e356c1bec179a9906d3819a781e";
+var promise = fetch(WEATHER_URL);
+var weather = document.querySelector(".weather");
+var fragment = document.createDocumentFragment();
+promise.then(function (response) {
+  var processingPromise = response.json();
+  return processingPromise;
+}).then(function (processedResponse) {
+  var temp = "current temp ".concat(processedResponse.main.temp, "\xB0"),
+      humidity = "humidity ".concat(processedResponse.main.humidity, " %"),
+      tempMinMax = "\u02F0".concat(processedResponse.main.temp_max, " \u02EF").concat(processedResponse.main.temp_min);
+  var weatherItems = [temp, humidity, tempMinMax];
+  weatherItems.forEach(function (item) {
+    var li = document.createElement("li");
+    li.textContent = item;
+    fragment.appendChild(li);
+  });
+  weather.appendChild(fragment);
+}).catch(function (error) {
+  console.log(error);
+});
+setInterval(setDate, 1000);
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -133,7 +200,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59085" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63754" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
