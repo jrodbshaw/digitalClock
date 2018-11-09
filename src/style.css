@@ -2,6 +2,7 @@
 html {
   box-sizing: border-box;
 }
+
 *,
 *:before,
 *:after {
@@ -26,6 +27,7 @@ body {
   grid-template-rows: 1fr 144px 1fr;
 }
 
+/* Month and year details */
 .month-year {
   font-weight: 200;
   grid-area: 1 / 2 / 2 / 3;
@@ -39,11 +41,13 @@ body {
 .month {
   padding-bottom: 8px;
 }
+
 .year {
   padding-bottom: 8px;
   padding-left: 13px;
 }
 
+/* Clock details */
 .clock-face {
   font-weight: 200;
   grid-area: 2 / 2 / 3 / 3;
@@ -56,6 +60,8 @@ body {
   margin: 0;
   padding: 34px;
 }
+
+/* Weather details */
 
 .weather-container {
   font-weight: 200;
